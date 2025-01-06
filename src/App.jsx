@@ -7,6 +7,7 @@ import { MdRouter, MdGamepad } from 'react-icons/md'
 import LazyImage from './components/LazyImage'
 import MobileMenu from './components/MobileMenu'
 import Testimonials from './components/Testimonials'
+import PlanCalculator from './components/PlanCalculator'
 
 function App() {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -312,6 +313,9 @@ function App() {
           </div>
         </div>
       </section>
+
+      {/* Plan Calculator */}
+      <PlanCalculator />
 
       {/* Testimonials Section */}
       <Testimonials />
