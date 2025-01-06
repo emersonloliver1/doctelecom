@@ -1,12 +1,16 @@
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Link } from 'react-scroll'
-import { FaWifi, FaRocket, FaHeadset, FaCheck, FaWhatsapp, FaPhone, FaGlobe, FaUser } from 'react-icons/fa'
+import { FaWifi, FaRocket, FaHeadset, FaCheck, FaWhatsapp, FaPhone, FaGlobe, FaUser, FaBars } from 'react-icons/fa'
 import { IoSpeedometer } from 'react-icons/io5'
 import { MdRouter, MdGamepad } from 'react-icons/md'
+import LazyImage from './components/LazyImage'
+import MobileMenu from './components/MobileMenu'
+import Testimonials from './components/Testimonials'
 
 function App() {
   const [isScrolled, setIsScrolled] = useState(false)
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [currentLogo, setCurrentLogo] = useState(1)
 
   useEffect(() => {
@@ -112,14 +116,14 @@ function App() {
       <nav className={`fixed w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-white shadow-lg' : 'bg-transparent'}`}>
         <div className="container-custom py-4">
           <div className="flex items-center justify-between">
-            <motion.img 
-              src={`/logo${currentLogo}.jpg`}
+            <LazyImage
+              src="/logo1.jpg"
               alt="DocTelecom Logo"
-              className="h-16 md:h-20 w-auto"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5 }}
+              className="h-12 w-auto"
+              priority={true}
             />
+            
+            {/* Desktop Menu */}
             <div className="hidden md:flex items-center space-x-8">
               <Link 
                 to="home" 
@@ -154,7 +158,9 @@ function App() {
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-600 transition-all duration-300 group-hover:w-full"></span>
               </Link>
             </div>
-            <div className="flex items-center gap-4">
+
+            {/* Desktop Action Buttons */}
+            <div className="hidden md:flex items-center gap-4">
               <a 
                 href="https://wa.link/0nv5z1" 
                 target="_blank" 
@@ -174,40 +180,62 @@ function App() {
                 Área do Assinante
               </a>
             </div>
+
+            {/* Mobile Menu Button */}
+            <button
+              className="md:hidden text-gray-700 hover:text-blue-600 transition-colors"
+              onClick={() => setIsMobileMenuOpen(true)}
+            >
+              <FaBars size={24} />
+            </button>
+
+            {/* Mobile Menu */}
+            <MobileMenu
+              isOpen={isMobileMenuOpen}
+              onClose={() => setIsMobileMenuOpen(false)}
+            />
           </div>
         </div>
       </nav>
 
       {/* Hero Section */}
-      <section id="home" className="min-h-screen pt-32 pb-16 bg-gradient-to-br from-blue-50 via-white to-blue-50 flex items-center">
-        <div className="container-custom">
-          <div className="text-center max-w-4xl mx-auto">
-            <motion.div
-              initial={{ opacity: 0, y: -50 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-            >
-              <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-blue-800">
-                Internet Fibra Óptica de Alta Velocidade
-              </h1>
-              <p className="text-xl md:text-2xl mb-8 text-gray-700">
-                Conectando o Benedito Bentes e região com a melhor internet de Maceió
-              </p>
-              <div className="flex flex-col md:flex-row gap-4 justify-center">
-                <button className="btn-primary flex items-center justify-center gap-2 text-lg">
-                  <FaGlobe className="text-xl" />
-                  Consulte Cobertura
-                </button>
-                <a 
-                  href="tel:8288042967"
-                  className="btn-secondary flex items-center justify-center gap-2 text-lg"
-                >
-                  <FaPhone className="text-xl" />
-                  (82) 98804-2967
-                </a>
-              </div>
-            </motion.div>
-          </div>
+      <section id="home" className="min-h-screen flex items-center bg-gradient-to-br from-blue-50 to-white">
+        <div className="container-custom grid md:grid-cols-2 gap-8 items-center">
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+              Internet Fibra Óptica de Alta Velocidade
+            </h1>
+            <p className="text-xl text-gray-600 mb-8">
+              Conecte-se com o melhor da internet. Planos a partir de 50MB com Wi-Fi grátis.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4">
+              <a
+                href="https://wa.link/0nv5z1"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-primary flex items-center justify-center gap-2"
+              >
+                <FaWhatsapp className="text-xl" />
+                Assine Agora
+              </a>
+            </div>
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5 }}
+            className="hidden md:block"
+          >
+            <LazyImage
+              src="/logo2.jpg"
+              alt="Internet Fibra Óptica"
+              className="w-full h-auto rounded-lg shadow-xl"
+            />
+          </motion.div>
         </div>
       </section>
 
@@ -285,6 +313,9 @@ function App() {
         </div>
       </section>
 
+      {/* Testimonials Section */}
+      <Testimonials />
+
       {/* Coverage Section */}
       <section id="coverage" className="section-padding w-full bg-white">
         <div className="container-custom">
@@ -353,7 +384,11 @@ function App() {
         <div className="container-custom">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
             <div className="text-center md:text-left">
-              <img src="/logo1.jpg" alt="DocTelecom Logo" className="h-12 md:h-16 w-auto mx-auto md:mx-0 mb-4" />
+              <LazyImage
+                src="/logo1.jpg"
+                alt="DocTelecom Logo"
+                className="h-12 md:h-16 w-auto mx-auto md:mx-0 mb-4"
+              />
               <p className="text-gray-400">Sua melhor conexão em Maceió</p>
             </div>
             <div className="text-center md:text-left">
