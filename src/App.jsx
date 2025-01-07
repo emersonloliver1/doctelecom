@@ -172,7 +172,7 @@ function App() {
                 Assine Já
               </a>
               <a 
-                href="#" 
+                href="https://docnettelecom.atlaz.com.br/central"
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="btn-secondary flex items-center gap-2"

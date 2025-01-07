@@ -85,7 +85,9 @@ const MobileMenu = ({ isOpen, onClose }) => {
                     Assine Já
                   </a>
                   <a
-                    href="#"
+                    href="https://docnettelecom.atlaz.com.br/central"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="btn-secondary flex items-center justify-center gap-2 w-full"
                   >
                     <FaUser className="text-xl" />
